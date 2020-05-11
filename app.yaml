@@ -1,0 +1,10 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+service: wbfilmedguestbook
+builtins:
+- appstats: on
+
+handlers:
+- url: .*
+  script: main.app
