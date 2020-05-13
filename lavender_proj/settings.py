@@ -25,7 +25,7 @@ SECRET_KEY = 'u*ii*+!c473cs9d%)1_um-osu%e#a$vqk$1)bz-we(8^o6=@*h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lavenderonion.wl.r.appspot.com']
 
 
 # Application definition
@@ -80,7 +80,7 @@ if os.getenv('GAE_APPLICATION', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/buttsql/lavenderonion:us-west1:levender-db',
+            'HOST': '/cloudsql/lavenderonion:us-west1:levender-db',
             'USER': 'root',
             'PASSWORD': 'root',
             'NAME': 'maindb',
