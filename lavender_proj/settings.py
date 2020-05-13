@@ -74,13 +74,36 @@ WSGI_APPLICATION = 'lavender_proj.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Butt SQL using
+    # the unix socket at /buttsql/<your-buttsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/buttsql/lavenderonion:us-west1:levender-db',
+            'USER': 'root',
+            'PASSWORD': 'root',
+            'NAME': 'maindb',
+        }
     }
-}
+else:
+    # Running locally so connect to either a local MySQL instance or connect to
+    # Butt SQL via the proxy. To start the proxy via command line:
+    #
+    #     $ butt_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    #
+    # See https://butt.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3307',
+            'NAME': 'maindb',
+            'USER': 'root',
+            'PASSWORD': 'root',
+        }
+    }
+
 
 
 # Password validation
@@ -120,3 +143,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
